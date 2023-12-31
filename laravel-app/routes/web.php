@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,8 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+// Route::get('/', function () {
 
-//Route::view('/', 'home');
+//     dd(config('services.mailgun.domain'));
+//     //Debugbar::addMessage('INFO');
+//     return view('welcome');
+// });
+
+// //Route::view('/', 'home');
+
+Route::get('/blog', [PostController::class, 'index']);
