@@ -11,7 +11,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        return view('blog.index');
     }
 
     /**
@@ -35,7 +35,7 @@ class PostController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return $id;
     }
 
     /**

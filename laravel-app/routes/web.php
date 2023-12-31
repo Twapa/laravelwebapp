@@ -1,7 +1,7 @@
 <?php
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,4 +22,24 @@ use Illuminate\Support\Facades\Route;
 
 // //Route::view('/', 'home');
 
-Route::get('/blog', [PostController::class, 'index']);
+
+//Route::resource('/blog', PostController::class);
+Route::get('/blog', [PostController::class,'index']);
+Route::get('/blog/{id}', [PostController::class,'show']);
+//post mehtod
+Route::get('/blog/create', [PostController::class,'create']);
+Route::post('/blog', [PostController::class,'store']);
+//patch
+Route::get('/blog/edit/{id}', [PostController::class,'edit']);
+Route::patch('/blog/{id}', [PostController::class,'update']);
+
+//delete
+Route::delete('/blog/{id}', [PostController::class,'destroy']);
+
+//Route::match(['GET','POST'],'/blog', [PostController::class,'index']);
+//Route::any('/blog', [PostController::class,'index']);
+
+
+//route for invoke method
+
+//Route::get('/', HomeController::class);
