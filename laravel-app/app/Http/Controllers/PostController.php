@@ -3,15 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
+
     {
-        return view('blog.index');
+        // $id = 7;
+        // $posts = DB::table('posts')
+        // ->where('id',$id)
+        // ->get();
+        $posts = DB::select('select * from users');
+        dd($posts);
+        //return view('blog.index');
     }
 
     /**
