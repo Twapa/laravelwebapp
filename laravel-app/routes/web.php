@@ -23,7 +23,8 @@ use App\Http\Controllers\HomeController;
 // //Route::view('/', 'home');
 
 Route::get('/', HomeController::class);
-//Route::resource('/blog', PostController::class);
+Route::get('/home', HomeController::class);
+
 Route::get('/blog', [PostController::class,'index']);
 
 Route::get('/blog/create', [PostController::class,'create']);
@@ -40,7 +41,7 @@ Route::get('/blog/{id}', [PostController::class,'show']);
 // Route::patch('/blog/{id}', [PostController::class,'update']);
 
 // //delete
-// Route::delete('/blog/{id}', [PostController::class,'destroy']);
+ Route::delete('/blog/{id}', [PostController::class,'destroy']);
 
 //Route::match(['GET','POST'],'/blog', [PostController::class,'index']);
 //Route::any('/blog', [PostController::class,'index']);
@@ -51,4 +52,4 @@ Route::get('/blog/{id}', [PostController::class,'show']);
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/index', [App\Http\Controllers\HomeController::class, 'index'])->name('index');

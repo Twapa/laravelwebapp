@@ -7,83 +7,51 @@ use Illuminate\Support\Facades\DB;
 use App\Models\posts;
 class PostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function __construct(){
+        $this->middleware('auth');
+    }
 
-    {
-        // $id = 7;
-        // $posts = DB::table('posts')
-        // ->where('id',$id)
-        // ->get();
-        $posts = posts::all();
+    public function index() {
+
+        $pizzas = posts::latest()->get();      
+    
+        return view('blog.index', [
+          'post' => $pizzas,
+        ]);
+      }
+    
+      public function show($id) {
         
-
-
-        dd($posts);
-        return view('blog.index', ['posts' => $posts]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
+        $pizza = posts::findOrFail($id);
+    
+        return view('blog.show', ['post' => $pizza]);
+      }
+    
+      public function create() {
         return view('blog.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        $post = new posts();
-        $post->name = $request->name;
-        $post->type = $request->type;
-        $post->base = $request->base;
-        $post->toppings = $request->toppings;
-        $post->save();
-        return redirect('/')->with('mssg', 'Post created successfully')
-            ->with('type', $request->type)
-            ->with('name', $request->name)
-            ->with('base', $request->base)
-            ->with('toppings', $request->toppings);
-
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-
-        $post = posts::findOrFail($id);
-
-        return view('blog.show', ['post' => $post]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
+      }
+    
+      public function store() {
+    
+        $pizza = new posts();
+    
+        $pizza->name = request('name');
+        $pizza->type = request('type');
+        $pizza->base = request('base');
+        $pizza->toppings = request('toppings');
+    
+        $pizza->save();
+    
+        return redirect('/')->with('mssg', 'Thanks for your order!');
+    
+      }
+    
+      public function destroy($id) {
+    
+        $pizza = Pizza::findOrFail($id);
+        $pizza->delete();
+    
+        return redirect('/blog');
+    
+      }
 }

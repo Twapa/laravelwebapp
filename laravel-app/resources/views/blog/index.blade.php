@@ -1,12 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>hello its twapa</title>
-</head>
-<body>
-    <h3>hello its twapa</h3>
-</body>
-</html>
+@extends('layouts.app')
+
+@section('content')
+<div class="wrapper pizza-index">
+  <h1>Pizza Orders</h1>
+  @foreach($post as $pizza)
+    <div class="pizza-item">
+      <img src="/img/pizza.png" alt="pizza icon">
+      <h4><a href="/pizzas/{{ $pizza->id }}">{{ $pizza->name }}</a></h4>
+    </div>
+  @endforeach
+
+</div>
+
+@endsection

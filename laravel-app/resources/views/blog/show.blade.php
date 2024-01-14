@@ -1,22 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <div class="wrapper pizza-details">
-        <h1>Order for {{ $post->name }}</h1>
-        <p class="type">Type - {{ $post->type }}</p>
-        <p class="base">Base - {{ $post->base }}</p>
-        <p class="toppings">Extra toppings:</p>
-        <ul>
-          @foreach($post->toppings as $topping)
-            <li>{{ $topping }}</li>
-          @endforeach
-        </ul>
-      </div>
-</body>
-</html>
+@extends('layouts.app')
+
+@section('content')
+<div class="wrapper pizza-details">
+  <h1>Order for {{ $post->name }}</h1>
+  <p class="type">Type - {{ $post->type }}</p>
+  <p class="base">Base - {{ $post->base }}</p>
+  <p class="toppings">Extra toppings:</p>
+  <ul>
+    @foreach($post->toppings as $topping)
+      <li>{{ $topping }}</li>
+    @endforeach
+  </ul>
+  <form action="/blog/{{ $post->id }}" method="POST">
+    @csrf
+    @method('DELETE')
+    <button>Complete Order</button>
+  </form>
+</div>
+<a href="/" class="back"><- Back to all pizzas</a>
+@endsection
