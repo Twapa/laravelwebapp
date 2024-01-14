@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\posts;
 class PostController extends Controller
 {
     /**
@@ -16,9 +17,12 @@ class PostController extends Controller
         // $posts = DB::table('posts')
         // ->where('id',$id)
         // ->get();
-        $posts = DB::select('select * from users');
+        $posts = posts::all();
+        
+
+
         dd($posts);
-        //return view('blog.index');
+        return view('blog.index', ['posts' => $posts]);
     }
 
     /**
@@ -26,7 +30,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('blog.create');
     }
 
     /**
@@ -34,7 +38,18 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $post = new posts();
+        $post->name = $request->name;
+        $post->type = $request->type;
+        $post->base = $request->base;
+        $post->toppings = $request->toppings;
+        $post->save();
+        return redirect('/')->with('mssg', 'Post created successfully')
+            ->with('type', $request->type)
+            ->with('name', $request->name)
+            ->with('base', $request->base)
+            ->with('toppings', $request->toppings);
+
     }
 
     /**
@@ -42,7 +57,10 @@ class PostController extends Controller
      */
     public function show(string $id)
     {
-        return $id;
+
+        $post = posts::findOrFail($id);
+
+        return view('blog.show', ['post' => $post]);
     }
 
     /**
